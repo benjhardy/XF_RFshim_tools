@@ -26,15 +26,16 @@ function [wfull_m, RSD_v, maxI_v, ab1ps_v,cpuTime] = tikhonovShim(B1plus_m, beta
     [zdim,ydim,xdim] = size(FOX); % in mm
 
     % step 1: setup design grid and kx,ky,kz search grid
-    load(fullfile(workingDir,'voxelizedMesh.mat'),'z_mesh','y_mesh','x_mesh'); 
-    
-    load(fullfile(workingDir,'Indices.mat'),'indexMesh_x','indexMesh_y','indexMesh_z');
-    
-    % need to consider changing this version
-    iz = indexMesh_z;
-    iy = indexMesh_y;
-    ix = indexMesh_x;
-    [z,y,x] = ndgrid(z_mesh(iz),y_mesh(iy),x_mesh(ix));
+%     load(fullfile(workingDir,'voxelizedMesh.mat'),'z_mesh','y_mesh','x_mesh'); 
+%     load(fullfile(workingDir,'Indices.mat'),'indexMesh_x','indexMesh_y','indexMesh_z');
+%     % need to consider changing this version
+%     iz = indexMesh_z;
+%     iy = indexMesh_y;
+%     ix = indexMesh_x;
+      
+%     [z,y,x] = ndgrid(z_mesh(iz),y_mesh(iy),x_mesh(ix));
+      [z,y,x] = ndgrid(1:size(FOX,3),1:size(FOX,2),1:size(FOX,1));
+%     
 %     deltamax = 1; % mm, max res of traj
 %     kmax = 1/deltamax; %/mm max spatial freq of traj
 %     [kzs,kys,kxs] = ndgrid(-kmax/2:1/zdim:kmax/2-1/zdim, -kmax/2:1/ydim:kmax/2-1/ydim, -kmax/2:1/xdim:kmax/2-1/xdim);

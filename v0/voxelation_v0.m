@@ -42,13 +42,13 @@ function voxelation(fullheadMesh,path)
     MeshEyDensity = fullheadMesh.MeshEyDensity;
     MeshEzDensity = fullheadMesh.MeshEzDensity;
     % Density Mesh creation...
-    
-    xD = MeshExDensity;
-    yD = MeshEyDensity;
-    zD = MeshEzDensity;
-    xD(isnan(xD))=0;
-    yD(isnan(yD))=0;
-    zD(isnan(zD))=0;
+    load('dvb.mat','dvb_X','dvb_Y','dvb_Z')
+    xD = ismember(MeshExDensity,dvb_X);
+    yD = ismember(MeshEyDensity,dvb_Y);
+    zD = ismember(MeshEzDensity,dvb_Z);
+    % xD(isnan(xD))=0;
+    % yD(isnan(yD))=0;
+    % zD(isnan(zD))=0;
 
     rho_m = zeros(length(grid_Z)-1,length(grid_Y)-1,length(grid_X)-1);
 
@@ -72,22 +72,22 @@ function voxelation(fullheadMesh,path)
     %volumeViewer(rho_m)
     % select the density values of interest to create the brainMask
     figure
-    imagesc(squeeze(rho_m(140,:,:)))
+    imagesc(squeeze(rho_m(130,:,:)))
     % find the vals in densityValsBrain
     a = roipoly;
     colorbar
     %
-    vals = unique(a.*squeeze(rho_m(140,:,:)));
+    vals = unique(a.*squeeze(rho_m(130,:,:)));
     vals(isnan(vals)) = 0;
     vals1 = unique(vals);
     
     figure
-    imagesc(squeeze(rho_m(120,:,:)))
+    imagesc(squeeze(rho_m(170,:,:)))
     % find the vals in densityValsBrain
     a = roipoly;
     colorbar
     %
-    vals = unique(a.*squeeze(rho_m(120,:,:)));
+    vals = unique(a.*squeeze(rho_m(170,:,:)));
     vals(isnan(vals)) = 0;
     vals2 = unique(vals);
     
