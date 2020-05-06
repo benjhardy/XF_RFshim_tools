@@ -14,6 +14,8 @@ function makeRawXfModel(label_m,list,list_nums,dir,name)
 % set into XF space
 % label_1 = permute(label_m,[2,1,3]);
 
+% pass the nifti
+
 % Create the RAW file!
 raw_name = sprintf('%s.raw',name);
 fid = fopen(fullfile(dir,raw_name),'w+');

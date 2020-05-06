@@ -21,7 +21,10 @@ outputDir = fullfile(xfdir,'Run0001','output');
 cd(outputDir)
 
 % pre-liminary data
-fileID = fopen('MultiPoint_Solid_Sensor_for_strip_line_0_info.bin', 'r', 'ieee-le');
+sensorName = 'MultiPoint_Solid_Sensor_0';
+
+info = sprintf('%s_info.bin',sensorName);
+fileID = fopen(info, 'r', 'ieee-le');
 data.rmpt = fread(fileID,[1 4],'*char');
 data.ver = fread(fileID,1, 'uint8');
 if (data.ver ~= 2)
@@ -35,7 +38,7 @@ data.num = fread(fileID,1,'uint64');
 fclose(fileID);
 
 % read the geometry file . . . 
-fileID = fopen('MultiPoint_Solid_Sensor_for_strip_line_0\geom.bin');
+fileID = fopen(fullfile(sensorName,'geom.bin'));
 grid = fread(fileID,Inf,'uint32');
 fclose(fileID);
 % ...
@@ -73,24 +76,24 @@ end
 % ...
 
 % frequency
-fileID = fopen('MultiPoint_Solid_Sensor_for_strip_line_0\frequencies.bin');
+fileID = fopen(fullfile(sensorName,'frequencies.bin'));
 freq = fread(fileID,1,'float32');
 fclose(fileID);
 
 % B-Field x part
-fileID = fopen('MultiPoint_Solid_Sensor_for_strip_line_0\ss_Bxrt\0.bin');
+fileID = fopen(fullfile(sensorName,'ss_Bxrt','0.bin'));
 Bx_r = fread(fileID,Inf,'float32');
 fclose(fileID);
-fileID = fopen('MultiPoint_Solid_Sensor_for_strip_line_0\ss_Bxit\0.bin');
+fileID = fopen(fullfile(sensorName,'ss_Bxit','0.bin'));
 Bx_i = fread(fileID,Inf,'float32');
 fclose(fileID);
 Bx_Tot = reshape(Bx_r,dim) + 1i*reshape(Bx_i,dim);
 
 % B-Field y part
-fileID = fopen('MultiPoint_Solid_Sensor_for_strip_line_0\ss_Byrt\0.bin');
+fileID = fopen(fullfile(sensorName,'ss_Byrt','0.bin'));
 By_r = fread(fileID,Inf,'float32');
 fclose(fileID);
-fileID = fopen('MultiPoint_Solid_Sensor_for_strip_line_0\ss_Byit\0.bin');
+fileID = fopen(fullfile(sensorName,'ss_Byit','0.bin'));
 By_i = fread(fileID,Inf,'float32');
 fclose(fileID);
 By_Tot = reshape(By_r,dim) + 1i*reshape(By_i,dim);
